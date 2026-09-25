@@ -1,0 +1,11 @@
+{% extends "quest/base.html" %}
+{% block title %}Log today — Fitness Quest{% endblock %}
+{% block content %}
+<h1>Log — {{ today|date:"l, j F" }}</h1>
+<p class="subtitle">{% if entry %}Editing today's entry.{% else %}First log of the day — nice.{% endif %}</p>
+<form method="post" class="entry-form">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit" class="button">Save today's quest</button>
+</form>
+{% endblock %}

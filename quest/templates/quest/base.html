@@ -1,0 +1,39 @@
+{% load static %}<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{% block title %}Fitness Quest{% endblock %}</title>
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="{% url 'plan' %}">Fitness Quest</a>
+  <nav>
+    {% if user.is_authenticated %}
+      <a href="{% url 'dashboard' %}">Dashboard</a>
+      <a href="{% url 'log_entry' %}">Log today</a>
+      <a href="{% url 'history' %}">History</a>
+      <a href="{% url 'plan' %}">The plan</a>
+      <a href="{% url 'diet' %}">Diet</a>
+      <form action="{% url 'logout' %}" method="post" class="inline-form">
+        {% csrf_token %}
+        <button type="submit" class="link-button">Log out</button>
+      </form>
+    {% else %}
+      <a href="{% url 'plan' %}">The plan</a>
+      <a href="{% url 'diet' %}">Diet</a>
+      <a href="{% url 'login' %}">Log in</a>
+      <a href="{% url 'signup' %}">Sign up</a>
+    {% endif %}
+  </nav>
+</header>
+<main class="container">
+  {% if messages %}
+    {% for message in messages %}<div class="alert">{{ message }}</div>{% endfor %}
+  {% endif %}
+  {% block content %}{% endblock %}
+</main>
+<footer>Built with Django · Keep showing up</footer>
+</body>
+</html>

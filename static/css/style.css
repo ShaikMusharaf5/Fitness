@@ -1,0 +1,245 @@
+/* Fitness Quest — "training log" identity: chalkboard ink, trail green, medal gold */
+
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Work+Sans:wght@400;500;600&display=swap');
+
+:root {
+  --ink: #1c2321;
+  --ink-soft: #454f4b;
+  --paper: #e9e4d8;
+  --paper-soft: #f5f2ea;
+  --trail: #3f6b4f;
+  --trail-dark: #2e4f3a;
+  --medal: #b9852c;
+  --medal-soft: #e7c064;
+  --brick: #a54a2a;
+  --line: #c9c2ae;
+  --radius: 3px;
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-padding-top: 1rem; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: "Work Sans", -apple-system, sans-serif;
+  font-size: 16px;
+  line-height: 1.55;
+}
+
+h1, h2, h3, .brand, .points, .bignum {
+  font-family: "Oswald", "Work Sans", sans-serif;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  color: var(--ink);
+}
+
+h1 { font-size: 1.9rem; margin: 0 0 0.3rem; }
+h2 { font-size: 1.2rem; margin: 0 0 0.8rem; border-bottom: 1px solid var(--line); padding-bottom: 0.5rem; }
+
+a { color: var(--trail-dark); }
+a:hover { color: var(--trail); }
+
+.subtitle { color: var(--ink-soft); margin: 0 0 1.5rem; }
+
+/* ---- layout ---- */
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  padding: 1rem 1.5rem;
+  border-bottom: 2px solid var(--ink);
+  background: var(--paper-soft);
+}
+
+.brand {
+  font-size: 1.3rem;
+  text-decoration: none;
+}
+
+.topbar nav {
+  display: flex;
+  align-items: center;
+  gap: 1.1rem;
+  flex-wrap: wrap;
+}
+
+.topbar nav a, .link-button {
+  color: var(--ink);
+  text-decoration: none;
+  font-size: 0.96rem;
+  border-bottom: 2px solid transparent;
+  padding-bottom: 2px;
+}
+
+.topbar nav a:hover, .link-button:hover { border-bottom-color: var(--medal); cursor: pointer; }
+
+.inline-form { display: inline; margin: 0; }
+
+.link-button {
+  background: none;
+  border: none;
+  font: inherit;
+  padding: 0;
+}
+
+.container {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem 4rem;
+}
+
+section.block {
+  padding: 1.6rem 0;
+  border-top: 1px solid var(--line);
+}
+section.block:first-child { border-top: none; padding-top: 0.5rem; }
+
+/* the one bold element: today's status */
+.today-card {
+  border: 2px solid var(--trail);
+  border-radius: var(--radius);
+  padding: 1.3rem 1.5rem;
+  background: var(--paper-soft);
+}
+
+.alert {
+  background: var(--paper-soft);
+  border-left: 3px solid var(--medal);
+  padding: 0.6rem 1rem;
+  margin-bottom: 1.2rem;
+}
+
+/* ---- checklist ---- */
+
+.checklist { list-style: none; padding: 0; margin: 0 0 1rem; }
+.checklist li {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.35rem 0;
+  font-size: 1.02rem;
+}
+.mark { font-size: 1.1rem; width: 1.3rem; text-align: center; }
+.mark.done { color: var(--trail); }
+.mark.pending { color: var(--ink-soft); opacity: 0.5; }
+
+.points {
+  font-size: 1.5rem;
+  color: var(--medal);
+  margin: 0.6rem 0 1rem;
+}
+
+/* ---- buttons ---- */
+
+.button {
+  display: inline-block;
+  background: var(--trail);
+  color: #fff;
+  text-decoration: none;
+  padding: 0.65rem 1.3rem;
+  border-radius: var(--radius);
+  border: none;
+  font: inherit;
+  font-weight: 500;
+  cursor: pointer;
+}
+.button:hover { background: var(--trail-dark); color: #fff; }
+
+/* ---- bar chart ---- */
+
+.bar-chart {
+  display: flex;
+  align-items: flex-end;
+  gap: 0.9rem;
+  height: 120px;
+  margin: 1rem 0 0.5rem;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 0.5rem;
+}
+.bar-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  flex: 1;
+  height: 100%;
+}
+.bar {
+  width: 60%;
+  min-height: 2px;
+  background: var(--trail);
+  border-radius: 2px 2px 0 0;
+}
+.bar-wrap.today .bar { background: var(--medal); }
+.bar-label { font-size: 0.78rem; color: var(--ink-soft); margin-top: 0.4rem; }
+
+/* ---- forms ---- */
+
+.entry-form p { margin: 0 0 1.1rem; display: flex; flex-direction: column; gap: 0.35rem; }
+.entry-form label { font-weight: 500; font-size: 0.95rem; }
+.entry-form input[type="text"],
+.entry-form input[type="number"],
+.entry-form input[type="password"],
+.entry-form textarea,
+.entry-form select {
+  font: inherit;
+  padding: 0.5rem 0.6rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: #fff;
+  color: var(--ink);
+  max-width: 320px;
+}
+.entry-form textarea { max-width: 100%; }
+.entry-form input[type="checkbox"] { width: 1.1rem; height: 1.1rem; }
+.entry-form input:focus, .entry-form textarea:focus, .entry-form select:focus,
+a:focus-visible, .button:focus-visible {
+  outline: 2px solid var(--medal);
+  outline-offset: 2px;
+}
+.helptext { font-size: 0.82rem; color: var(--ink-soft); }
+.errorlist { color: var(--brick); list-style: none; padding: 0; margin: 0.2rem 0; font-size: 0.85rem; }
+
+/* ---- table ---- */
+
+table.history-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+}
+.history-table th, .history-table td {
+  text-align: left;
+  padding: 0.55rem 0.6rem;
+  border-bottom: 1px solid var(--line);
+}
+.history-table th { font-family: "Oswald", sans-serif; font-weight: 600; }
+
+.pagination { display: flex; gap: 1rem; margin-top: 1rem; font-size: 0.9rem; }
+
+/* ---- reference pages (plan / diet) ---- */
+
+.quest-table { width: 100%; border-collapse: collapse; margin: 0.8rem 0 1.4rem; }
+.quest-table th, .quest-table td { text-align: left; padding: 0.5rem 0.7rem; border-bottom: 1px solid var(--line); }
+.quest-table th { font-family: "Oswald", sans-serif; font-weight: 600; background: var(--paper-soft); }
+
+.week-note { border-left: 3px solid var(--trail); padding: 0.2rem 0 0.2rem 0.9rem; margin: 0.9rem 0; }
+.week-note strong { color: var(--trail-dark); }
+
+footer {
+  text-align: center;
+  color: var(--ink-soft);
+  font-size: 0.85rem;
+  padding: 2rem 0;
+}
+
+@media (max-width: 560px) {
+  .topbar { flex-direction: column; align-items: flex-start; }
+  h1 { font-size: 1.5rem; }
+  .entry-form input, .entry-form textarea, .entry-form select { max-width: 100%; }
+}

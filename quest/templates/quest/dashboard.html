@@ -1,0 +1,38 @@
+{% extends "quest/base.html" %}
+{% block title %}Dashboard — Fitness Quest{% endblock %}
+{% block content %}
+<h1>Hey {{ user.username }}</h1>
+<p class="subtitle">{{ today|date:"l, j F" }}</p>
+
+<section class="block">
+  <div class="today-card">
+    {% if entry %}
+      <ul class="checklist">
+        <li><span class="mark {% if entry.walked_km >= 2 %}done{% else %}pending{% endif %}">{% if entry.walked_km >= 2 %}✓{% else %}○{% endif %}</span> Walk — {{ entry.walked_km }} km</li>
+        <li><span class="mark {% if entry.strength_done %}done{% else %}pending{% endif %}">{% if entry.strength_done %}✓{% else %}○{% endif %}</span> Strength session</li>
+        <li><span class="mark {% if entry.mobility_done %}done{% else %}pending{% endif %}">{% if entry.mobility_done %}✓{% else %}○{% endif %}</span> Mobility warm-up</li>
+        <li><span class="mark {% if entry.protein_every_meal %}done{% else %}pending{% endif %}">{% if entry.protein_every_meal %}✓{% else %}○{% endif %}</span> Protein at every meal</li>
+        <li><span class="mark {% if entry.sleep_hours >= 7 and entry.sleep_hours <= 9 %}done{% else %}pending{% endif %}">{% if entry.sleep_hours >= 7 and entry.sleep_hours <= 9 %}✓{% else %}○{% endif %}</span> 7–9 hrs sleep ({{ entry.sleep_hours }}h logged)</li>
+      </ul>
+      <p class="points">{{ entry.points }} points today</p>
+      <a class="button" href="{% url 'log_entry' %}">Edit today's log</a>
+    {% else %}
+      <p>Nothing logged yet today.</p>
+      <a class="button" href="{% url 'log_entry' %}">Log today's quest</a>
+    {% endif %}
+  </div>
+</section>
+
+<section class="block">
+  <h2>This week</h2>
+  <p class="points">{{ week_points }} <span style="font-size:1rem;color:var(--ink-soft);font-family:'Work Sans',sans-serif;">/ {{ max_week_points }} points</span></p>
+  <div class="bar-chart">
+    {% for d in week_data %}
+      <div class="bar-wrap {% if d.date == today %}today{% endif %}">
+        <div class="bar" style="height: {% widthratio d.points 40 100 %}%"></div>
+        <span class="bar-label">{{ d.date|date:"D" }}</span>
+      </div>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}
