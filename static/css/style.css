@@ -243,3 +243,18 @@ footer {
   h1 { font-size: 1.5rem; }
   .entry-form input, .entry-form textarea, .entry-form select { max-width: 100%; }
 }
+.exercise { border-left: 3px solid var(--medal); padding: 0.4rem 0 0.6rem 0.9rem; margin: 1.1rem 0; }
+.exercise h3 {
+  font-family: "Oswald", sans-serif;
+  font-size: 1.05rem;
+  font-weight: 600;
+  margin: 0 0 0.4rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+.exercise .target { color: var(--medal); font-size: 0.88rem; font-weight: 500; white-space: nowrap; }
+.exercise p { margin: 0 0 0.35rem; font-size: 0.95rem; color: var(--ink); }
+.exercise p:last-child { margin-bottom: 0; }
