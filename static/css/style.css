@@ -244,11 +244,12 @@ footer {
   .entry-form input, .entry-form textarea, .entry-form select { max-width: 100%; }
 }
 .exercise { border-left: 3px solid var(--medal); padding: 0.4rem 0 0.6rem 0.9rem; margin: 1.1rem 0; }
+.exercise-head { display: flex; align-items: center; gap: 0.7rem; margin-bottom: 0.45rem; }
+.exercise-head h3 { margin: 0; flex: 1; }
 .exercise h3 {
   font-family: "Oswald", sans-serif;
   font-size: 1.05rem;
   font-weight: 600;
-  margin: 0 0 0.4rem;
   display: flex;
   justify-content: space-between;
   align-items: baseline;
@@ -258,3 +259,34 @@ footer {
 .exercise .target { color: var(--medal); font-size: 0.88rem; font-weight: 500; white-space: nowrap; }
 .exercise p { margin: 0 0 0.35rem; font-size: 0.95rem; color: var(--ink); }
 .exercise p:last-child { margin-bottom: 0; }
+
+.ex-icon {
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+  fill: none;
+  stroke: var(--ink);
+  stroke-width: 5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.ex-icon .ex-ground, .ex-icon .ex-wall { stroke: var(--line); stroke-width: 3; }
+
+.entry-form .field-row { margin: 0 0 1.1rem; display: flex; flex-direction: column; gap: 0.35rem; }
+.entry-form .checkbox-row { flex-direction: row; align-items: center; gap: 0.55rem; }
+.entry-form .checkbox-row label { font-weight: 400; margin: 0; }
+
+.exercise-field {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  margin: 0 0 1.1rem;
+  padding: 0.6rem 0.9rem;
+  border-left: 3px solid var(--medal);
+  background: var(--paper-soft);
+  border-radius: var(--radius);
+}
+.exercise-field .ex-icon { width: 50px; height: 50px; }
+.exercise-field-input { display: flex; flex-direction: column; gap: 0.3rem; flex: 1; }
+.exercise-field-input label { font-weight: 500; font-size: 0.92rem; }
+.exercise-field-input input { max-width: 120px; }
