@@ -3,9 +3,95 @@
 {% block content %}
 <h1>Log — {{ today|date:"l, j F" }}</h1>
 <p class="subtitle">{% if entry %}Editing today's entry.{% else %}First log of the day — nice.{% endif %}</p>
+
 <form method="post" class="entry-form">
   {% csrf_token %}
-  {{ form.as_p }}
+  {{ form.non_field_errors }}
+
+  <div class="field-row">
+    {{ form.walked_km.label_tag }}
+    {{ form.walked_km }}
+    {{ form.walked_km.errors }}
+  </div>
+  <div class="field-row checkbox-row">
+    {{ form.brisk_included }}{{ form.brisk_included.label_tag }}
+  </div>
+  <div class="field-row checkbox-row">
+    {{ form.mobility_done }}{{ form.mobility_done.label_tag }}
+  </div>
+  <div class="field-row checkbox-row">
+    {{ form.strength_done }}{{ form.strength_done.label_tag }}
+  </div>
+
+  <h2>Strength — today's reps</h2>
+
+  <div class="exercise-field">
+    <svg class="ex-icon" viewBox="0 0 100 100" aria-hidden="true"><line x1="10" y1="92" x2="90" y2="92" class="ex-ground"/><line x1="15" y1="58" x2="35" y2="58"/><line x1="15" y1="58" x2="15" y2="25"/><circle cx="33" cy="20" r="7"/><line x1="35" y1="27" x2="40" y2="58"/><line x1="40" y1="58" x2="58" y2="68"/><line x1="58" y1="68" x2="54" y2="92"/><line x1="35" y1="30" x2="60" y2="38"/></svg>
+    <div class="exercise-field-input">
+      {{ form.chair_squats_reps.label_tag }}
+      {{ form.chair_squats_reps }}
+      {{ form.chair_squats_reps.errors }}
+    </div>
+  </div>
+
+  <div class="exercise-field">
+    <svg class="ex-icon" viewBox="0 0 100 100" aria-hidden="true"><line x1="95" y1="10" x2="95" y2="92" class="ex-wall"/><line x1="15" y1="90" x2="68" y2="42"/><circle cx="75" cy="35" r="7"/><line x1="68" y1="42" x2="88" y2="48"/></svg>
+    <div class="exercise-field-input">
+      {{ form.wall_pushups_reps.label_tag }}
+      {{ form.wall_pushups_reps }}
+      {{ form.wall_pushups_reps.errors }}
+    </div>
+  </div>
+
+  <div class="exercise-field">
+    <svg class="ex-icon" viewBox="0 0 100 100" aria-hidden="true"><line x1="10" y1="90" x2="90" y2="90" class="ex-ground"/><circle cx="13" cy="83" r="7"/><line x1="19" y1="86" x2="10" y2="89"/><line x1="19" y1="86" x2="46" y2="75"/><line x1="46" y1="75" x2="66" y2="80"/><line x1="66" y1="80" x2="68" y2="90"/></svg>
+    <div class="exercise-field-input">
+      {{ form.glute_bridges_reps.label_tag }}
+      {{ form.glute_bridges_reps }}
+      {{ form.glute_bridges_reps.errors }}
+    </div>
+  </div>
+
+  <div class="exercise-field">
+    <svg class="ex-icon" viewBox="0 0 100 100" aria-hidden="true"><line x1="6" y1="88" x2="94" y2="88" class="ex-ground"/><circle cx="16" cy="46" r="6"/><line x1="16" y1="52" x2="26" y2="55"/><line x1="26" y1="55" x2="58" y2="57"/><line x1="26" y1="55" x2="29" y2="86"/><line x1="58" y1="57" x2="55" y2="86"/><line x1="26" y1="55" x2="6" y2="45"/><line x1="58" y1="57" x2="84" y2="49"/></svg>
+    <div class="exercise-field-input">
+      {{ form.bird_dog_reps.label_tag }}
+      {{ form.bird_dog_reps }}
+      {{ form.bird_dog_reps.errors }}
+    </div>
+  </div>
+
+  <div class="exercise-field">
+    <svg class="ex-icon" viewBox="0 0 100 100" aria-hidden="true"><line x1="6" y1="88" x2="94" y2="88" class="ex-ground"/><circle cx="28" cy="48" r="7"/><line x1="33" y1="53" x2="60" y2="68"/><line x1="60" y1="68" x2="82" y2="80"/><line x1="82" y1="80" x2="85" y2="88"/><line x1="36" y1="60" x2="36" y2="72"/><line x1="36" y1="72" x2="23" y2="85"/></svg>
+    <div class="exercise-field-input">
+      {{ form.plank_seconds.label_tag }}
+      {{ form.plank_seconds }}
+      {{ form.plank_seconds.errors }}
+    </div>
+  </div>
+
+  <div class="field-row">
+    {{ form.sleep_hours.label_tag }}
+    {{ form.sleep_hours }}
+    {{ form.sleep_hours.errors }}
+  </div>
+  <div class="field-row">
+    {{ form.water_liters.label_tag }}
+    {{ form.water_liters }}
+    {{ form.water_liters.errors }}
+  </div>
+  <div class="field-row checkbox-row">
+    {{ form.protein_every_meal }}{{ form.protein_every_meal.label_tag }}
+  </div>
+  <div class="field-row checkbox-row">
+    {{ form.did_anyway }}{{ form.did_anyway.label_tag }}
+  </div>
+  <div class="field-row">
+    {{ form.notes.label_tag }}
+    {{ form.notes }}
+    {{ form.notes.errors }}
+  </div>
+
   <button type="submit" class="button">Save today's quest</button>
 </form>
 {% endblock %}
