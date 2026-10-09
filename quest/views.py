@@ -1,5 +1,6 @@
-from datetime import timedelta
+from datetime import date as date_cls, timedelta
 
+from django.contrib import messages
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
@@ -55,21 +56,44 @@ def dashboard(request):
 
 @login_required
 def log_entry(request):
+    """Create or edit the log for any past day (default: today). Use ?date=YYYY-MM-DD."""
     today = timezone.localdate()
-    entry = DailyEntry.objects.filter(user=request.user, date=today).first()
+    raw = request.GET.get("date")
+
+    if raw:
+        try:
+            log_date = date_cls.fromisoformat(raw)
+        except ValueError:
+            messages.error(request, "That date wasn't valid, so here is today instead.")
+            return redirect("log_entry")
+        if log_date > today:
+            messages.error(request, "You can't log a day that hasn't happened yet.")
+            return redirect("log_entry")
+    else:
+        log_date = today
+
+    entry = DailyEntry.objects.filter(user=request.user, date=log_date).first()
 
     if request.method == "POST":
         form = DailyEntryForm(request.POST, instance=entry)
         if form.is_valid():
             obj = form.save(commit=False)
             obj.user = request.user
-            obj.date = today
+            obj.date = log_date
             obj.save()
-            return redirect("dashboard")
+            messages.success(request, f"Saved your log for {log_date:%A, %d %B %Y}.")
+            return redirect("dashboard" if log_date == today else "history")
     else:
         form = DailyEntryForm(instance=entry)
 
-    return render(request, "quest/log_form.html", {"form": form, "today": today, "entry": entry})
+    context = {
+        "form": form,
+        "today": today,
+        "log_date": log_date,
+        "is_today": log_date == today,
+        "entry": entry,
+    }
+    return render(request, "quest/log_form.html", context)
 
 
 @login_required
