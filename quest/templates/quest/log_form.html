@@ -1,10 +1,21 @@
 {% extends "quest/base.html" %}
 {% block title %}Log today — Fitness Quest{% endblock %}
 {% block content %}
-<h1>Log — {{ today|date:"l, j F" }}</h1>
-<p class="subtitle">{% if entry %}Editing today's entry.{% else %}First log of the day — nice.{% endif %}</p>
+<h1>Log — {{ log_date|date:"l, j F Y" }}</h1>
+<p class="subtitle">
+  {% if entry %}Editing the saved log for this day.
+  {% elif is_today %}First log of the day — nice.
+  {% else %}No log saved for this day yet — you're adding it now.{% endif %}
+</p>
 
-<form method="post" class="entry-form">
+<form method="get" class="date-picker">
+  <label for="log-date">Pick a different day</label>
+  <input type="date" id="log-date" name="date" value="{{ log_date|date:'Y-m-d' }}" max="{{ today|date:'Y-m-d' }}" required>
+  <button type="submit" class="button">Open</button>
+  {% if not is_today %}<a href="{% url 'log_entry' %}">Back to today</a>{% endif %}
+</form>
+
+<form method="post" action="{% url 'log_entry' %}?date={{ log_date|date:'Y-m-d' }}" class="entry-form">
   {% csrf_token %}
   {{ form.non_field_errors }}
 
