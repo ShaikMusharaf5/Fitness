@@ -2,9 +2,10 @@
 {% block title %}History — Fitness Quest{% endblock %}
 {% block content %}
 <h1>History</h1>
+<p class="subtitle">Missed a day? <a href="{% url 'log_entry' %}">Pick any past date</a> to add or fix its log, or hit Edit on a row.</p>
 <table class="history-table">
   <thead>
-    <tr><th>Date</th><th>Walk</th><th>Strength</th><th>Mobility</th><th>Sleep</th><th>Water</th><th>Points</th></tr>
+    <tr><th>Date</th><th>Walk</th><th>Strength</th><th>Mobility</th><th>Sleep</th><th>Water</th><th>Points</th><th></th></tr>
   </thead>
   <tbody>
     {% for e in page_obj %}
@@ -16,9 +17,10 @@
       <td>{{ e.sleep_hours }}h</td>
       <td>{{ e.water_liters }}L</td>
       <td>{{ e.points }}</td>
+      <td><a href="{% url 'log_entry' %}?date={{ e.date|date:'Y-m-d' }}">Edit</a></td>
     </tr>
     {% empty %}
-    <tr><td colspan="7">No entries yet — <a href="{% url 'log_entry' %}">log today's quest</a>.</td></tr>
+    <tr><td colspan="8">No entries yet — <a href="{% url 'log_entry' %}">log today's quest</a>.</td></tr>
     {% endfor %}
   </tbody>
 </table>
